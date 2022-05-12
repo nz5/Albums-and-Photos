@@ -8,6 +8,7 @@
                      :id="`droppable-${index}`"
                      class="item albumCnt">Album - {{ index }}
                 </div>
+                <div class="item addItemButton" @click="minNumOfAlbums++">Add new</div>
             </div>
         </div>
         <div class="columnCnt">
@@ -18,6 +19,7 @@
                      :id="`draggable-${index}`"
                      class="item photoCnt">Photo - {{ index }}
                 </div>
+                <div class="item addItemButton" @click="minNumOfPhotos++">Add new</div>
             </div>
         </div>
     </div>
@@ -74,5 +76,13 @@
     .photoCnt {
         background-color: palevioletred;
         cursor: move;
+    }
+
+    .addItemButton {
+        border: 2px dotted black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
     }
 </style>
