@@ -6,7 +6,7 @@
                 <div v-for="(i, index) of Array(minNumOfAlbums)"
                      :key="`droppable-${index}`"
                      :id="`droppable-${index}`"
-                     class="item albumCnt">Album - {{ index }}
+                     class="item albumCnt droppable">Album - {{ index }}
                 </div>
                 <div class="item addItemButton" @click="minNumOfAlbums++">Add new</div>
             </div>
@@ -17,7 +17,8 @@
                 <div v-for="(i, index) of Array(minNumOfPhotos)"
                      :key="`draggable-${index}`"
                      :id="`draggable-${index}`"
-                     class="item photoCnt">Photo - {{ index }}
+                     draggable="true"
+                     class="item photoCnt draggable">Photo - {{ index }}
                 </div>
                 <div class="item addItemButton" @click="minNumOfPhotos++">Add new</div>
             </div>
@@ -34,6 +35,57 @@
                 minNumOfPhotos: 5,
             };
         },
+        mounted() {
+            this.draggableItems = document.querySelectorAll(".draggable");
+            this.draggableItems.forEach((item) => {
+                this.addDraggableEvents(item);
+            });
+
+            this.droppableItems = document.querySelectorAll(".droppable");
+            this.droppableItems.forEach((item) => {
+                this.addDroppableEvents(item);
+            });
+        },
+        destroyed() {
+            // TODO clean up event listeners
+        },
+        methods: {
+            addDraggableEvents(item) {
+                item.addEventListener("dragstart", this.handleDragStart, false);
+                item.addEventListener("dragenter", this.handleDragEnter, false);
+                item.addEventListener("dragleave", this.handleDragLeave, false);
+                item.addEventListener("dragend", this.handleDragEnd, false);
+            },
+            addDroppableEvents(item) {
+                item.addEventListener("dragover", this.handleDragOver, false);
+                item.addEventListener("drop", this.handleDrop, false);
+            },
+
+            // ==================== draggable functions
+            handleDragStart(e) {
+                e.target.style.opacity = "0.4";
+            },
+            handleDragEnter() {
+                // console.log("handleDragEnter e: ", e);
+            },
+            handleDragLeave() {
+                // console.log("handleDragLeave e: ", e);
+            },
+            handleDragEnd(e) {
+                // console.log("handleDragEnd e: ", e);
+                e.target.style.opacity = "1";
+            },
+
+            // ==================== droppable functions
+            handleDragOver(e) {
+                e.preventDefault();
+                e.dataTransfer.effectAllowed = "all";
+                e.dataTransfer.dropEffect = "copy";
+            },
+            handleDrop() {
+                // console.log("handleDrop e: ", e);
+            },
+        }
     }
 </script>
 
