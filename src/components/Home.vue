@@ -64,6 +64,7 @@
             // ==================== draggable functions
             handleDragStart(e) {
                 e.target.style.opacity = "0.4";
+                e.dataTransfer.setData("text/plain", e.toElement.id);
             },
             handleDragEnter() {
                 // console.log("handleDragEnter e: ", e);
@@ -82,8 +83,14 @@
                 e.dataTransfer.effectAllowed = "all";
                 e.dataTransfer.dropEffect = "copy";
             },
-            handleDrop() {
-                // console.log("handleDrop e: ", e);
+            handleDrop(e) {
+                e.preventDefault();
+                const dragElemId = e.dataTransfer.getData("text/plain");
+                const dropElemId = e.toElement.id;
+                const dragElemLocation = document.getElementById(dragElemId).getBoundingClientRect();
+                const dropElemLocation = document.getElementById(dropElemId).getBoundingClientRect();
+                console.log("dragElemLocation ", dragElemLocation);
+                console.log("dropElemLocation ", dropElemLocation);
             },
         }
     }
