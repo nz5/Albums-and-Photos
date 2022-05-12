@@ -3,19 +3,21 @@
         <div class="columnCnt">
             <h2>List of Albums</h2>
             <div class="itemsCnt">
-                <div class="item albumCnt">Album 1</div>
-                <div class="item albumCnt">Album 2</div>
-                <div class="item albumCnt">Album 3</div>
+                <div v-for="(i, index) of Array(minNumOfAlbums)"
+                     :key="`droppable-${index}`"
+                     :id="`droppable-${index}`"
+                     class="item albumCnt">Album - {{ index }}
+                </div>
             </div>
         </div>
         <div class="columnCnt">
             <h2>List of Photos</h2>
             <div class="itemsCnt">
-                <div class="item photoCnt">Photo 1</div>
-                <div class="item photoCnt">Photo 2</div>
-                <div class="item photoCnt">Photo 3</div>
-                <div class="item photoCnt">Photo 4</div>
-                <div class="item photoCnt">Photo 5</div>
+                <div v-for="(i, index) of Array(minNumOfPhotos)"
+                     :key="`draggable-${index}`"
+                     :id="`draggable-${index}`"
+                     class="item photoCnt">Photo - {{ index }}
+                </div>
             </div>
         </div>
     </div>
@@ -23,7 +25,13 @@
 
 <script>
     export default {
-        name: "Home"
+        name: "Home",
+        data() {
+            return {
+                minNumOfAlbums: 3,
+                minNumOfPhotos: 5,
+            };
+        },
     }
 </script>
 
